@@ -11,10 +11,10 @@ export default function EditorLayout() {
     <div className="h-screen w-screen bg-white p-3">
       <div className="flex h-full rounded-xl overflow-hidden shadow-2xl">
         <div
-          style={{ width: open ? 500 : 0 }}
+          style={{ width: open ? "min(500px, calc(100vw - 56px))" : 0 }}
           className="h-full bg-[#5b5bd6] shrink-0 overflow-hidden transition-all duration-300"
         >
-          <div className="w-125 h-full">
+          <div className="w-full h-full">
             <ProblemPanel
               problem={activeProblem}
               problems={problems}
@@ -22,7 +22,6 @@ export default function EditorLayout() {
             />
           </div>
         </div>
-
         <button
           type="button"
           aria-label={open ? "Hide problem panel" : "Show problem panel"}
@@ -36,7 +35,6 @@ export default function EditorLayout() {
             Problem
           </span>
         </button>
-
         <div className="flex-1 bg-white min-w-0">
           <CodeEditorPanel problemId={activeProblem.id} />
         </div>

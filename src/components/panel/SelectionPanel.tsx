@@ -37,7 +37,7 @@ export default function SelectionPanel({
   return (
     <div
       className="flex flex-col p-6 h-full overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-      onMouseLeave={() => setHoverIndex(null)}
+      onPointerLeave={() => setHoverIndex(null)}
     >
       <div className="flex items-center justify-between mb-8 shrink-0">
         <span className="text-sm font-sans font-bold tracking-widest text-white/40 uppercase">
@@ -79,15 +79,13 @@ export default function SelectionPanel({
           const text = dist === 0 || isActive ? "text-white" : "text-white/40";
           const content = (
             <>
-              <div className="w-24 shrink-0 flex items-center">
+              <div className="w-16 md:w-24 shrink-0 flex items-center"> 
                 <div
                   className={`h-0.5 rounded-full transition-all duration-200 ${width}`}
                 />
               </div>
               {row.p && (
-                <span
-                  className={`text-2xl font-sans font-bold leading-none transition-colors duration-200 ${text}`}
-                >
+                <span className={`text-xl md:text-2xl font-sans font-bold leading-none transition-colors duration-200 ${text}`}>
                   {row.i}. {row.p.name}
                 </span>
               )}
@@ -98,7 +96,7 @@ export default function SelectionPanel({
             return (
               <div
                 key={row.id}
-                onMouseEnter={() => setHoverIndex(idx)}
+                onPointerEnter={() => setHoverIndex(idx)}
                 className="flex items-center h-4.5"
               >
                 {content}
@@ -116,7 +114,7 @@ export default function SelectionPanel({
                 onSelect(problem);
                 onBack();
               }}
-              onMouseEnter={() => setHoverIndex(idx)}
+              onPointerEnter={() => setHoverIndex(idx)}
               className="group flex h-4.5 items-center text-left cursor-pointer"
             >
               {content}

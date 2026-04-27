@@ -1,0 +1,81 @@
+---
+const problems: [string, string, string][] = [
+    ["001", "Multiples", "Solved"],
+    ["002", "Fibonacci", "Solved"],
+    ["003", "Prime Factor", "Solved"],
+    ["004", "Palindrome", "Running"],
+    ["005", "Small Multiple", "Unsolved"],
+    ["006", "Sum Square", "Unsolved"],
+];
+
+const stateStyles: Record<
+    string,
+    { card: string; dot: string; label: string }
+> = {
+    Solved: {
+        card: "bg-[#b9f35d]",
+        dot: "bg-[#3d6500]",
+        label: "text-[#3d6500]",
+    },
+    Running: {
+        card: "bg-[#a98dff]",
+        dot: "bg-[#3600b3]",
+        label: "text-[#3600b3]",
+    },
+    Unsolved: {
+        card: "bg-[#fffdf7]",
+        dot: "bg-[#5f596d]",
+        label: "text-[#5f596d]",
+    },
+};
+---
+
+<section
+    class="w-[min(1180px,calc(100%-32px))] mx-auto py-18"
+    id="problems"
+    aria-label="Project Euler workflow"
+>
+    <div
+        class="grid grid-cols-1 min-[761px]:grid-cols-[160px_minmax(0,1fr)] gap-6 items-start mb-10"
+    >
+        <p
+            class="m-0 text-[#6d35ee] font-mono font-black uppercase tracking-wide text-sm"
+        >
+            Problem queue
+        </p>
+        <h2 class="m-0 font-black leading-[0.97] text-[clamp(2rem,5vw,4.4rem)]">
+            Pick a maths problem, write the code, run it, check the answer.
+        </h2>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        {
+            problems.map(([number, title, state]) => {
+                const s = stateStyles[state];
+                return (
+                    <article
+                        class={`flex flex-col justify-between min-h-42 p-4 border-2 border-[#17151f] rounded-lg transition-[transform,box-shadow] duration-160 ease-[ease] hover:-translate-x-0.75 hover:-translate-y-0.75 hover:shadow-[7px_7px_0_#17151f] cursor-default ${s.card}`}
+                    >
+                        <span class="font-mono font-black text-[#17151f]">
+                            {number}
+                        </span>
+                        <div>
+                            <h3 class="mt-0 mb-2 text-[0.85rem] font-black text-[#17151f] leading-tight">
+                                {title}
+                            </h3>
+                            <div class="flex items-center gap-1.5">
+                                <span
+                                    class={`w-2 h-2 rounded-full shrink-0 ${s.dot}`}
+                                />
+                                <p
+                                    class={`m-0 font-mono font-black text-[0.7rem] ${s.label}`}
+                                >
+                                    {state}
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                );
+            })
+        }
+    </div>
+</section>

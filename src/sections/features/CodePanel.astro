@@ -1,0 +1,79 @@
+---
+const codeLines = [
+    "#import <iostream>",
+    "using namespace std;",
+    "int main() {",
+    "  int sum = 0;",
+    "  for (int n = 3; n < 1000; n += 1) {",
+    "    if (n % 3 == 0 || n % 5 == 0) sum += n;",
+    "  }",
+    "  cout << sum;",
+    "}",
+];
+---
+
+<div
+    class="w-[min(1180px,calc(100%-32px))] mx-auto overflow-hidden border-2 border-black rounded-lg bg-[#fffdf7] shadow-[12px_12px_0_#c7f05d]"
+>
+    <div
+        class="flex flex-start justify-between gap-4 p-3.5 bg-[#f54f7a] font-extrabold border-b-2"
+    >
+        <p
+            class="grid min-w-12 min-h-8.5 place-items-center border-2 border-black rounded-md bg-black text-white"
+        >
+            C++
+        </p>
+        <p
+            class="grid min-w-12 min-h-8.5 place-items-center border-2 border-black rounded-full bg-[#b9f35d] text-black font-sans"
+        >
+            Run
+        </p>
+    </div>
+
+    <div
+        class="grid grid-cols-1 md:grid-cols-[320px_minmax(0,1fr)] md:min-h-115"
+    >
+        <div
+            class="border-r-2 border-black p-7"
+            style="background: linear-gradient(90deg, rgb(23 21 31 / 0.07) 1px, transparent 1px), linear-gradient(rgb(23 21 31 / 0.07) 1px, transparent 1px), #fff9e8; background-size: 22px 22px;"
+        >
+            <p
+                class="mb-3.5 text-[#6d35ee] font-mono text-[0.82rem] font-black tracking-[0.08em] uppercase"
+            >
+                Problem 001
+            </p>
+            <h2 class="mb-4 text-[2rem] font-extrabold">Multiples of 3 or 5</h2>
+            <p class="m-0 text-gray-700 leading-[1.6] font-sans">
+                Find the sum of all natural numbers below 1000 that are
+                multiples of 3 or 5.
+            </p>
+        </div>
+
+        <div class="overflow-auto py-5.5 bg-[#17151f]">
+            <ol
+                class="list-decimal m-0 py-0 pr-7 pl-16 text-gray-300 font-mono text-[clamp(0.82rem,1.5vw,1rem)] leading-[1.85]"
+            >
+                {
+                    codeLines.map((line) => (
+                        <li>
+                            <code class="font-mono text-gray-400 whitespace-pre">
+                                {line || " "}
+                            </code>
+                        </li>
+                    ))
+                }
+            </ol>
+        </div>
+    </div>
+
+    <div
+        class="flex items-center gap-3.5 px-5 py-4 border-t-2 border-[#17151f] bg-[#fff9e8] font-mono text-[0.92rem]"
+    >
+        <p>output:</p>
+        <p
+            class="min-w-21.5 px-2.5 py-1.75 rounded-md bg-[#b9f35d] text-center"
+        >
+            233168
+        </p>
+    </div>
+</div>

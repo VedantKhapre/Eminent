@@ -12,6 +12,20 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.1.8"
+    "@astrojs/node": "^10.0.5",
+    "@astrojs/react": "^5.0.3",
+    "@base-ui/react": "^1.4.1",
+    "@clerk/astro": "^3.0.17",
+    "@codemirror/lang-javascript": "^6.2.5",
+    "@monaco-editor/react": "^4.7.0",
+    "@tailwindcss/vite": "^4.2.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@uiw/codemirror-theme-vscode": "^4.25.9",
+    "@uiw/react-codemirror": "^4.25.9",
+    "astro": "^6.1.8",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tailwindcss": "^4.2.3"
   }
 }

@@ -34,14 +34,14 @@ export default function CodeEditorPanel({ problemId }: Props) {
           <button
             onClick={() => handleRun(problemId)}
             disabled={isRunning || isSubmitting}
-            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#5b5bd6] px-4 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:shadow-none `hover:translate-y-0.75 `hover:translate-x-0.75 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
+            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#5b5bd6] px-4 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-y-0.75 hover:translate-x-0.75 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
           >
             {isRunning ? "Running . ." : "▶ Run"}
           </button>
           <button
             onClick={() => handleSubmit(problemId)}
             disabled={isRunning || isSubmitting}
-            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#22c55e] px-4 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:shadow-none `hover:translate-y-0.75 `hover:translate-x-0.75 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
+            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#22c55e] px-4 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-y-0.75 hover:translate-x-0.75 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
           >
             {isSubmitting ? "Submitting . ." : "Submit"}
           </button>

@@ -1,0 +1,18 @@
+---
+import { SignIn } from "@clerk/astro/components";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const redirectUrl = "/problems";
+---
+<BaseLayout title="Login | Eminent">
+  <div class="flex items-center justify-center min-h-screen">
+    <SignIn
+      path="/sign-in"
+      routing="path"
+      forceRedirectUrl={redirectUrl}
+      fallbackRedirectUrl={redirectUrl}
+      signUpForceRedirectUrl={redirectUrl}
+      signUpFallbackRedirectUrl={redirectUrl}
+    />
+  </div>
+</BaseLayout>

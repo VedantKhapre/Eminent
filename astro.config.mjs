@@ -29,4 +29,8 @@ export default defineConfig({
   ],
 
   output: "server",
+  redirects: {
+    "/login": "/sign-in",
+    "/signup": "/sign-up",
+  },
 });

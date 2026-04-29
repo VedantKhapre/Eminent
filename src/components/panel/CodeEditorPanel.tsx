@@ -51,13 +51,13 @@ export default function CodeEditorPanel({ problemId }: Props) {
   })();
 
   return (
-    <div className="flex flex-col h-full p-3 gap-3">
-      <div className="flex items-center justify-between shrink-0">
+    <div className="flex flex-col h-full p-2 gap-2 sm:p-3 sm:gap-3">
+      <div className="flex flex-col gap-2 shrink-0 sm:flex-row sm:items-center sm:justify-between">
         <label className="flex items-center gap-2 text-xs font-bold tracking-widest text-gray-500 uppercase">
           <select
             value={selectedLanguageId}
             onChange={(e) => setSelectedLanguageId(e.target.value)}
-            className="h-8 rounded-md border border-gray-300 bg-white px-2 text-xs font-semibold tracking-normal text-gray-700 outline-none focus:border-[#5b5bd6]"
+            className="h-8 w-full rounded-md border border-gray-300 bg-white px-2 text-xs font-semibold tracking-normal text-gray-700 outline-none focus:border-[#5b5bd6] sm:w-auto"
           >
             {CODE_LANGUAGES.map((lang) => (
               <option key={lang.id} value={lang.id}>
@@ -66,24 +66,24 @@ export default function CodeEditorPanel({ problemId }: Props) {
             ))}
           </select>
         </label>
-        <div className="flex items-center gap-2">
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center">
           <button
             onClick={() => handleRun(problemId)}
             disabled={isRunning || isSubmitting}
-            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#5b5bd6] px-4 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-y-0.75 hover:translate-x-0.75 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
+            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#5b5bd6] px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-y-0.75 hover:translate-x-0.75 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none sm:px-4"
           >
             {isRunning ? "Running . ." : "▶ Run"}
           </button>
           <button
             onClick={() => handleSubmit(problemId)}
             disabled={isRunning || isSubmitting}
-            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#22c55e] px-4 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-y-0.75 hover:translate-x-0.75 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
+            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#22c55e] px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-y-0.75 hover:translate-x-0.75 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none sm:px-4"
           >
             {isSubmitting ? "Submitting . ." : "Submit"}
           </button>
         </div>
       </div>
-      <div className="flex-1 rounded-xl border border-gray-200 overflow-hidden relative">
+      <div className="flex-1 min-h-0 rounded-xl border border-gray-200 overflow-hidden relative">
         <CodeMirror
           value={code}
           height="100%"
@@ -98,7 +98,7 @@ export default function CodeEditorPanel({ problemId }: Props) {
             tabSize: 2,
           }}
           style={{
-            fontSize: 18,
+            fontSize: "clamp(14px, 4vw, 18px)",
             fontFamily: "Menlo, Fira Mono, monospace",
             height: "100%",
           }}

@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { CODE_LANGUAGES, DEFAULT_CODE } from "./languages";
+
+export type { CodeLanguage } from "./languages";
+export { CODE_LANGUAGES } from "./languages";
 
 export type TestResult = {
   testNumber: number;
@@ -16,7 +20,8 @@ export type EvalResponse = {
 };
 
 export function useCodeRunner() {
-  const [code, setCode] = useState(`console.log("Hello, World!")`);
+  const [code, setCode] = useState(DEFAULT_CODE["c++"]);
+  const [selectedLanguageId, setSelectedLanguageId] = useState("cpp-10");
   const [isRunning, setIsRunning] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasRun, setHasRun] = useState(false);
@@ -24,17 +29,41 @@ export function useCodeRunner() {
   const [evalError, setEvalError] = useState<string | null>(null);
   const [outputHeight, setOutputHeight] = useState(300);
 
+  const selectedLanguage =
+    CODE_LANGUAGES.find((lang) => lang.id === selectedLanguageId) ?? CODE_LANGUAGES[0];
+
+  const handleLanguageChange = (id: string) => {
+    setSelectedLanguageId(id);
+    const lang = CODE_LANGUAGES.find((l) => l.id === id);
+    if (lang) setCode(DEFAULT_CODE[lang.language] ?? "");
+  };
+
   async function callEvaluate(problemId: number, publicOnly: boolean) {
-    const res = await fetch("/api/judge0/evaluate", {
+    const res = await fetch("/api/piston/evaluate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         source_code: code,
-        language_id: 63,
+        language: selectedLanguage.language,
+        version: selectedLanguage.version,
         problemId,
         publicOnly,
       }),
     });
+
+    if (res.status === 429) throw new Error("Too many requests. Please wait a moment.");
+
+    if (!res.ok) {
+      let message = "Evaluation failed. Please try again.";
+      try {
+        const data = await res.json();
+        if (typeof data?.error === "string") message = data.error;
+      } catch {
+        // keep generic message if response is not JSON
+      }
+      throw new Error(message);
+    }
+
     const data: EvalResponse = await res.json();
     setEvalResult(data);
   }
@@ -46,8 +75,8 @@ export function useCodeRunner() {
     setEvalError(null);
     try {
       await callEvaluate(problemId, true);
-    } catch {
-      setEvalError("Cannot reach the server at the moment.");
+    } catch (err) {
+      setEvalError(err instanceof Error ? err.message : "Cannot reach the server.");
     } finally {
       setIsRunning(false);
     }
@@ -60,8 +89,8 @@ export function useCodeRunner() {
     setEvalError(null);
     try {
       await callEvaluate(problemId, false);
-    } catch {
-      setEvalError("Evaluation failed. Cannot reach the server.");
+    } catch (err) {
+      setEvalError(err instanceof Error ? err.message : "Evaluation failed.");
     } finally {
       setIsSubmitting(false);
     }
@@ -70,6 +99,9 @@ export function useCodeRunner() {
   return {
     code,
     setCode,
+    selectedLanguageId,
+    setSelectedLanguageId: handleLanguageChange,
+    selectedLanguage,
     isRunning,
     isSubmitting,
     hasRun,

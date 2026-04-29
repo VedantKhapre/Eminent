@@ -1,8 +1,12 @@
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
+import { python } from "@codemirror/lang-python";
+import { cpp } from "@codemirror/lang-cpp";
+import { java } from "@codemirror/lang-java";
+import { rust } from "@codemirror/lang-rust";
 import OutputPanel from "@/components/panel/OutputPanel";
 import GridPattern from "@/components/grid/GridPattern";
-import { useCodeRunner } from "src/hooks/CodeRunner";
+import { CODE_LANGUAGES, useCodeRunner } from "src/hooks/CodeRunner";
 
 interface Props {
   problemId: number;
@@ -12,6 +16,9 @@ export default function CodeEditorPanel({ problemId }: Props) {
   const {
     code,
     setCode,
+    selectedLanguageId,
+    setSelectedLanguageId,
+    selectedLanguage,
     isRunning,
     isSubmitting,
     hasRun,
@@ -23,13 +30,42 @@ export default function CodeEditorPanel({ problemId }: Props) {
     handleRun,
     handleSubmit,
   } = useCodeRunner();
+  const editorExtensions = (() => {
+    switch (selectedLanguage.language) {
+      case "c":
+        return [cpp()];
+      case "javascript":
+        return [javascript()];
+      case "typescript":
+        return [javascript({ typescript: true })];
+      case "python":
+        return [python()];
+      case "c++":
+      case "java":
+        return [java()];
+      case "rust":
+        return [rust()];
+      default:
+        return [];
+    }
+  })();
 
   return (
     <div className="flex flex-col h-full p-3 gap-3">
       <div className="flex items-center justify-between shrink-0">
-        <span className="text-sm font-bold tracking-widest text-gray-600 uppercase">
-          JavaScript
-        </span>
+        <label className="flex items-center gap-2 text-xs font-bold tracking-widest text-gray-500 uppercase">
+          <select
+            value={selectedLanguageId}
+            onChange={(e) => setSelectedLanguageId(e.target.value)}
+            className="h-8 rounded-md border border-gray-300 bg-white px-2 text-xs font-semibold tracking-normal text-gray-700 outline-none focus:border-[#5b5bd6]"
+          >
+            {CODE_LANGUAGES.map((lang) => (
+              <option key={lang.id} value={lang.id}>
+                {lang.label}
+              </option>
+            ))}
+          </select>
+        </label>
         <div className="flex items-center gap-2">
           <button
             onClick={() => handleRun(problemId)}
@@ -51,7 +87,7 @@ export default function CodeEditorPanel({ problemId }: Props) {
         <CodeMirror
           value={code}
           height="100%"
-          extensions={[javascript()]}
+          extensions={editorExtensions}
           onChange={(val) => setCode(val)}
           basicSetup={{
             lineNumbers: true,

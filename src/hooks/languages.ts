@@ -24,3 +24,6 @@ export const DEFAULT_CODE: Record<string, string> = {
   java:       `public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello, World!");\n  }\n}`,
   rust:       `fn main() {\n  println!("Hello, World!");\n}`,
 };
+export const ALLOWED_RUNTIMES = new Set(
+  CODE_LANGUAGES.map((lang) => `${lang.language}@${lang.version}`)
+);

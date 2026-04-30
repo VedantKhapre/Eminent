@@ -6,15 +6,7 @@ import { jsonError, truncate } from "@/lib/apiHelpers";
 
 const MAX_SOURCE_LENGTH = 100_000;
 
-const ALLOWED_RUNTIMES = new Set([
-  "javascript@18.15.0",
-  "typescript@5.0.3",
-  "python@3.10.0",
-  "c++@10.2.0",
-  "c@10.2.0",
-  "java@15.0.2",
-  "rust@1.50.0",
-]);
+import { ALLOWED_RUNTIMES } from "@/hooks/languages";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {

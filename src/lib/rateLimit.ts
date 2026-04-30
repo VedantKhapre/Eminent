@@ -1,7 +1,21 @@
-const USER_LIMIT = 20;
+const USER_LIMIT = 7;
 const WINDOW_MS = 60_000;
 
-const userRequests = new Map<string, { count: number; resetAt: number }>();
+interface RateLimitEntry {
+  count: number;
+  resetAt: number;
+}
+
+const userRequests = new Map<string, RateLimitEntry>();
+
+setInterval(() => {
+  const now = Date.now();
+  for (const [userId, entry] of userRequests) {
+    if (now > entry.resetAt) {
+      userRequests.delete(userId);
+    }
+  }
+}, 60_000);
 
 export function isRateLimited(userId: string): boolean {
   const now = Date.now();

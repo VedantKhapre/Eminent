@@ -32,9 +32,6 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: false,
   },
-  security: {
-      csp: true,
-    },
   redirects: {
     "/login": "/sign-in",
     "/signup": "/sign-up",

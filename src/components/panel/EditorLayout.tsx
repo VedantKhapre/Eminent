@@ -36,7 +36,7 @@ export default function EditorLayout() {
           </span>
         </button>
         <div className="flex-1 bg-white min-w-0">
-          <CodeEditorPanel problemId={activeProblem.id} />
+          <CodeEditorPanel key={activeProblem.id} problemId={activeProblem.id} />
         </div>
       </div>
     </div>

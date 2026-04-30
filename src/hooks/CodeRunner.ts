@@ -1,23 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { CODE_LANGUAGES, DEFAULT_CODE } from "./languages";
-
+import type { EvalResponse } from "./eval";
+export type { TestResult, EvalResponse } from "./eval";
 export type { CodeLanguage } from "./languages";
 export { CODE_LANGUAGES } from "./languages";
-
-export type TestResult = {
-  testNumber: number;
-  passed: boolean;
-  isPrivate: boolean;
-  input: string;
-  expected: string;
-  output: string;
-};
-
-export type EvalResponse = {
-  passedCount: number;
-  total: number;
-  results: TestResult[];
-};
 
 export function useCodeRunner() {
   const [code, setCode] = useState(DEFAULT_CODE["c++"]);
@@ -28,6 +14,7 @@ export function useCodeRunner() {
   const [evalResult, setEvalResult] = useState<EvalResponse | null>(null);
   const [evalError, setEvalError] = useState<string | null>(null);
   const [outputHeight, setOutputHeight] = useState(300);
+  const abortRef = useRef<AbortController | null>(null);
 
   const selectedLanguage =
     CODE_LANGUAGES.find((lang) => lang.id === selectedLanguageId) ?? CODE_LANGUAGES[0];
@@ -39,9 +26,14 @@ export function useCodeRunner() {
   };
 
   async function callEvaluate(problemId: number, publicOnly: boolean) {
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+  
     const res = await fetch("/api/piston/evaluate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
       body: JSON.stringify({
         source_code: code,
         language: selectedLanguage.language,
@@ -50,9 +42,7 @@ export function useCodeRunner() {
         publicOnly,
       }),
     });
-
     if (res.status === 429) throw new Error("Too many requests. Please wait a moment.");
-
     if (!res.ok) {
       let message = "Evaluation failed. Please try again.";
       try {
@@ -63,11 +53,9 @@ export function useCodeRunner() {
       }
       throw new Error(message);
     }
-
     const data: EvalResponse = await res.json();
     setEvalResult(data);
   }
-
   const handleRun = async (problemId: number) => {
     setIsRunning(true);
     setHasRun(true);
@@ -76,6 +64,7 @@ export function useCodeRunner() {
     try {
       await callEvaluate(problemId, true);
     } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") return;
       setEvalError(err instanceof Error ? err.message : "Cannot reach the server.");
     } finally {
       setIsRunning(false);
@@ -90,7 +79,8 @@ export function useCodeRunner() {
     try {
       await callEvaluate(problemId, false);
     } catch (err) {
-      setEvalError(err instanceof Error ? err.message : "Evaluation failed.");
+      if (err instanceof DOMException && err.name === "AbortError") return;
+      setEvalError(err instanceof Error ? err.message : "Cannot reach the server.");
     } finally {
       setIsSubmitting(false);
     }

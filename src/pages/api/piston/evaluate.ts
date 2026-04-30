@@ -24,11 +24,22 @@ export const POST: APIRoute = async ({ request, locals }) => {
     if (isRateLimited(userId)) return jsonError("Too many requests. Please wait a moment.", 429);
 
     // Validate body
-    const { source_code, language = "javascript", version = "18.15.0", problemId, publicOnly } =
-      await request.json();
+    const contentLength = Number(request.headers.get("content-length") ?? 0);
+    if (contentLength > MAX_SOURCE_LENGTH) return jsonError("Source code too large", 413);
+    
+    let body: Record<string, unknown>;
+    try {
+      body = await request.json();
+    } catch {
+      return jsonError("Invalid JSON", 400);
+    }
+    
+    const { source_code, language, version, problemId, publicOnly } = body;
 
     if (
       typeof source_code !== "string" ||
+      typeof language !== "string" ||
+      typeof version !== "string" ||
       typeof problemId !== "number" ||
       typeof publicOnly !== "boolean"
     ) {

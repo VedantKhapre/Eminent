@@ -1,4 +1,5 @@
 import CodeMirror from "@uiw/react-codemirror";
+import { useMemo } from "react";
 import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
 import { cpp } from "@codemirror/lang-cpp";
@@ -11,6 +12,15 @@ import { CODE_LANGUAGES, useCodeRunner } from "src/hooks/CodeRunner";
 interface Props {
   problemId: number;
 }
+
+const BASIC_SETUP = {
+  lineNumbers: true,
+  foldGutter: true,
+  highlightActiveLine: true,
+  autocompletion: true,
+  indentOnInput: true,
+  tabSize: 2,
+};
 
 export default function CodeEditorPanel({ problemId }: Props) {
   const {
@@ -30,7 +40,7 @@ export default function CodeEditorPanel({ problemId }: Props) {
     handleRun,
     handleSubmit,
   } = useCodeRunner();
-  const editorExtensions = (() => {
+  const editorExtensions = useMemo(() => {
     switch (selectedLanguage.language) {
       case "c":
         return [cpp()];
@@ -41,6 +51,7 @@ export default function CodeEditorPanel({ problemId }: Props) {
       case "python":
         return [python()];
       case "c++":
+        return [cpp()];
       case "java":
         return [java()];
       case "rust":
@@ -48,7 +59,7 @@ export default function CodeEditorPanel({ problemId }: Props) {
       default:
         return [];
     }
-  })();
+  }, [selectedLanguage.language]);
 
   return (
     <div className="flex flex-col h-full p-2 gap-2 sm:p-3 sm:gap-3">
@@ -89,14 +100,7 @@ export default function CodeEditorPanel({ problemId }: Props) {
           height="100%"
           extensions={editorExtensions}
           onChange={(val) => setCode(val)}
-          basicSetup={{
-            lineNumbers: true,
-            foldGutter: true,
-            highlightActiveLine: true,
-            autocompletion: true,
-            indentOnInput: true,
-            tabSize: 2,
-          }}
+          basicSetup={BASIC_SETUP}
           style={{
             fontSize: "clamp(14px, 4vw, 18px)",
             fontFamily: "Menlo, Fira Mono, monospace",

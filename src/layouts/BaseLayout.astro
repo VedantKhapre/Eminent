@@ -4,19 +4,33 @@ import "../styles/global.css";
 
 interface Props {
     title: string;
+    description?: string;
+    canonical?: string;
+    ogImage?: string;
 }
-const { title } = Astro.props;
----
 
+const {
+    title,
+    description = "Eminent – practice coding challenges in your browser.",
+    canonical = Astro.url.href,
+    ogImage = "/og-default.png",
+} = Astro.props;
+---
 <html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href={canonical} />
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:url" content={canonical} />
         <Font cssVariable="--font-geist" />
         <Font cssVariable="--font-geist-mono" />
         <title>{title}</title>
     </head>
-
     <body>
         <slot />
     </body>

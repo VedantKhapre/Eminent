@@ -100,3 +100,5 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return jsonError("Evaluation failed. Please try again.", 500);
   }
 };
+
+export const ALL: APIRoute = () => jsonError("Method not allowed", 405);

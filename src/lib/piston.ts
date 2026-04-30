@@ -27,10 +27,9 @@ export async function execute(
 
   if (res.status === 429) throw new Error("RATE_LIMITED");
   if (!res.ok) {
-    const text = await res.text();
-    console.error(`Piston ${res.status}: ${text.slice(0, 200)}`);
-    throw new Error("EXECUTOR_ERROR");
-  }
+      console.error(`Piston error: status=${res.status} requestId=${res.headers.get("x-request-id") ?? "unknown"}`);
+      throw new Error("EXECUTOR_ERROR");
+    }
 
   return res.json();
 }

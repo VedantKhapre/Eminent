@@ -29,6 +29,9 @@ export default defineConfig({
   ],
 
   output: "server",
+  markdown: {
+    syntaxHighlight: false,
+  },
   security: {
       csp: true,
     },

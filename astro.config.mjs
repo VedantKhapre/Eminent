@@ -29,6 +29,9 @@ export default defineConfig({
   ],
 
   output: "server",
+  security: {
+      csp: true,
+    },
   redirects: {
     "/login": "/sign-in",
     "/signup": "/sign-up",

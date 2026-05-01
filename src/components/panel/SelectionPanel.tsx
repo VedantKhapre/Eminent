@@ -6,6 +6,7 @@ interface Props {
   activeProblem: Problems;
   onSelect: (p: Problems) => void;
   onBack: () => void;
+  solvedIds: Set<number>;
 }
 
 type RowItem = { id: string; p?: Problems; i?: number };
@@ -15,6 +16,7 @@ export default function SelectionPanel({
   activeProblem,
   onSelect,
   onBack,
+  solvedIds, 
 }: Props) {
   const [hoverIdx, setHoverIndex] = useState<number | null>(null);
 
@@ -76,7 +78,11 @@ export default function SelectionPanel({
               : isActive
                 ? "w-16 bg-white"
                 : "w-10 bg-white/20";
-          const text = dist === 0 || isActive ? "text-white" : "text-white/40";
+          const isSolved = row.p && solvedIds.has(row.p.id);
+          const text = isSolved 
+            ? "text-green-300" 
+            : (dist === 0 || isActive ? "text-white" : "text-white/40");
+            
           const content = (
             <>
               <div className="w-16 md:w-24 shrink-0 flex items-center"> 

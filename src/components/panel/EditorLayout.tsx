@@ -2,10 +2,28 @@ import { useState } from "react";
 import CodeEditorPanel from "./CodeEditorPanel";
 import ProblemPanel from "./ProblemPanel";
 import { problems } from "../../data/problems/problems";
+import confetti from "canvas-confetti";
 
 export default function EditorLayout() {
   const [open, setOpen] = useState(true);
   const [activeProblem, setActiveProblem] = useState(problems[0]);
+  const [solvedIds, setSolvedIds] = useState<Set<number>>(
+    () => new Set(JSON.parse(typeof window !== "undefined" ? (localStorage.getItem("solved") ?? "[]") : "[]")),
+  );
+  
+  const handleSolve = (id: number) => {
+    setSolvedIds((prev) => {
+      if (prev.has(id)) return prev;
+      const next = new Set(prev).add(id);
+      localStorage.setItem("solved", JSON.stringify([...next]));
+      confetti({
+        particleCount: 120,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+      return next;
+    });
+  };
 
   return (
     <div className="h-screen w-screen bg-white p-3">
@@ -19,6 +37,7 @@ export default function EditorLayout() {
               problem={activeProblem}
               problems={problems}
               onSelect={setActiveProblem}
+              solvedIds={solvedIds}
             />
           </div>
         </div>
@@ -36,7 +55,7 @@ export default function EditorLayout() {
           </span>
         </button>
         <div className="flex-1 bg-white min-w-0">
-          <CodeEditorPanel key={activeProblem.id} problemId={activeProblem.id} />
+          <CodeEditorPanel key={activeProblem.id} problemId={activeProblem.id} onSolve={handleSolve}/>
         </div>
       </div>
     </div>

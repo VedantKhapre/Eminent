@@ -1,5 +1,5 @@
 import CodeMirror from "@uiw/react-codemirror";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
 import { cpp } from "@codemirror/lang-cpp";
@@ -11,6 +11,7 @@ import { CODE_LANGUAGES, useCodeRunner } from "src/hooks/CodeRunner";
 
 interface Props {
   problemId: number;
+  onSolve: (id: number) => void;
 }
 
 const BASIC_SETUP = {
@@ -22,7 +23,7 @@ const BASIC_SETUP = {
   tabSize: 2,
 };
 
-export default function CodeEditorPanel({ problemId }: Props) {
+export default function CodeEditorPanel({ problemId, onSolve }: Props) {
   const {
     code,
     setCode,
@@ -40,6 +41,13 @@ export default function CodeEditorPanel({ problemId }: Props) {
     handleRun,
     handleSubmit,
   } = useCodeRunner();
+  
+  useEffect(() => {
+    if (!evalResult) return;
+    const hasPrivate = evalResult.results.some((r) => r.isPrivate);
+    if (hasPrivate && evalResult.results.every((r) => r.passed)) onSolve(problemId);
+  }, [evalResult]);
+  
   const editorExtensions = useMemo(() => {
     switch (selectedLanguage.language) {
       case "c":

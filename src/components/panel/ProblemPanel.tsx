@@ -7,9 +7,10 @@ interface Props {
   problem: Problems;
   problems: Problems[];
   onSelect: (p: Problems) => void;
+  solvedIds: Set<number>;
 }
 
-export default function ProblemPanel({ problem, problems, onSelect }: Props) {
+export default function ProblemPanel({ problem, problems, onSelect, solvedIds }: Props) {
   const [showSelector, setShowSelector] = useState(false);
 
   return (
@@ -24,10 +25,16 @@ export default function ProblemPanel({ problem, problems, onSelect }: Props) {
         }}
       >
         <div className="flex items-center justify-between mb-4">
-          <span className="text-sm font-sans font-bold tracking-widest text-white/40 uppercase">
-            Problem {problem.id}
-          </span>
-
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-sans font-bold tracking-widest text-white/40 uppercase">
+              Problem {problem.id}
+            </span>
+            {solvedIds.has(problem.id) && (
+              <span className="text-xs font-bold tracking-widest text-green-300 uppercase border border-green-400/40 bg-green-400/10 px-2 py-0.5 rounded-sm">
+                Solved
+              </span>
+            )}
+          </div>
           <button
             type="button"
             aria-label="Open problem list"
@@ -83,6 +90,7 @@ export default function ProblemPanel({ problem, problems, onSelect }: Props) {
           activeProblem={problem}
           onSelect={onSelect}
           onBack={() => setShowSelector(false)}
+          solvedIds={solvedIds}
         />
       </div>
 

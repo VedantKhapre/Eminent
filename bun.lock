@@ -5,22 +5,26 @@
     "": {
       "name": "eminent-equator",
       "dependencies": {
-        "@astrojs/react": "latest",
-        "@astrojs/vercel": "latest",
-        "@clerk/astro": "latest",
-        "@codemirror/lang-cpp": "latest",
-        "@codemirror/lang-java": "latest",
-        "@codemirror/lang-javascript": "latest",
-        "@codemirror/lang-python": "latest",
-        "@codemirror/lang-rust": "latest",
-        "@tailwindcss/vite": "latest",
-        "@types/react": "latest",
-        "@types/react-dom": "latest",
-        "@uiw/react-codemirror": "latest",
-        "astro": "latest",
-        "react": "latest",
-        "react-dom": "latest",
-        "tailwindcss": "latest",
+        "@astrojs/react": "^5.0.4",
+        "@astrojs/vercel": "^10.0.6",
+        "@clerk/astro": "^3.0.23",
+        "@codemirror/lang-cpp": "^6.0.3",
+        "@codemirror/lang-java": "^6.0.2",
+        "@codemirror/lang-javascript": "^6.2.5",
+        "@codemirror/lang-python": "^6.2.1",
+        "@codemirror/lang-rust": "^6.0.2",
+        "@tailwindcss/vite": "^4.2.4",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "@uiw/react-codemirror": "^4.25.9",
+        "astro": "^6.2.1",
+        "canvas-confetti": "^1.9.4",
+        "react": "^19.2.5",
+        "react-dom": "^19.2.5",
+        "tailwindcss": "^4.2.4",
+      },
+      "devDependencies": {
+        "@types/canvas-confetti": "^1.9.0",
       },
     },
   },
@@ -367,6 +371,8 @@
 
     "@types/babel__traverse": ["@types/babel__traverse@7.28.0", "", { "dependencies": { "@babel/types": "^7.28.2" } }, "sha512-8PvcXf70gTDZBgt9ptxJ8elBeBjcLOAcOtoO/mPJjtji1+CdGbHgm77om1GrsPxsiE+uXIpNSK64UYaIwQXd4Q=="],
 
+    "@types/canvas-confetti": ["@types/canvas-confetti@1.9.0", "", {}, "sha512-aBGj/dULrimR1XDZLtG9JwxX1b4HPRF6CX9Yfwh3NvstZEm1ZL7RBnel4keCPSqs1ANRu1u2Aoz9R+VmtjYuTg=="],
+
     "@types/debug": ["@types/debug@4.1.13", "", { "dependencies": { "@types/ms": "*" } }, "sha512-KSVgmQmzMwPlmtljOomayoR89W4FynCAi3E8PPs7vmDVPe84hT+vGPKkJfThkmXs0x0jAaa9U8uW8bbfyS2fWw=="],
 
     "@types/estree": ["@types/estree@1.0.8", "", {}, "sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w=="],
@@ -442,6 +448,8 @@
     "browserslist": ["browserslist@4.28.2", "", { "dependencies": { "baseline-browser-mapping": "^2.10.12", "caniuse-lite": "^1.0.30001782", "electron-to-chromium": "^1.5.328", "node-releases": "^2.0.36", "update-browserslist-db": "^1.2.3" }, "bin": { "browserslist": "cli.js" } }, "sha512-48xSriZYYg+8qXna9kwqjIVzuQxi+KYWp2+5nCYnYKPTr0LvD89Jqk2Or5ogxz0NUMfIjhh2lIUX/LyX9B4oIg=="],
 
     "caniuse-lite": ["caniuse-lite@1.0.30001788", "", {}, "sha512-6q8HFp+lOQtcf7wBK+uEenxymVWkGKkjFpCvw5W25cmMwEDU45p1xQFBQv8JDlMMry7eNxyBaR+qxgmTUZkIRQ=="],
+
+    "canvas-confetti": ["canvas-confetti@1.9.4", "", {}, "sha512-yxQbJkAVrFXWNbTUjPqjF7G+g6pDotOUHGbkZq2NELZUMDpiJ85rIEazVb8GTaAptNW2miJAXbs1BtioA251Pw=="],
 
     "ccount": ["ccount@2.0.1", "", {}, "sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg=="],
 

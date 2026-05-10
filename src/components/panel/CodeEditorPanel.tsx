@@ -1,5 +1,5 @@
 import CodeMirror from "@uiw/react-codemirror";
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
 import { cpp } from "@codemirror/lang-cpp";
@@ -41,13 +41,24 @@ export default function CodeEditorPanel({ problemId, onSolve }: Props) {
     handleRun,
     handleSubmit,
   } = useCodeRunner();
+  const [showLogout, setShowLogout] = useState(false);
   
   useEffect(() => {
     if (!evalResult) return;
     const hasPrivate = evalResult.results.some((r) => r.isPrivate);
     if (hasPrivate && evalResult.results.every((r) => r.passed)) onSolve(problemId);
   }, [evalResult]);
-  
+
+  const handleLogout = () => {
+    const clerk = (window as Window & { Clerk?: { signOut: (options?: { redirectUrl?: string }) => void | Promise<void> } }).Clerk;
+    if (clerk) {
+      void clerk.signOut({ redirectUrl: "/" });
+      return;
+    }
+
+    window.location.assign("/");
+  };
+
   const editorExtensions = useMemo(() => {
     switch (selectedLanguage.language) {
       case "c":
@@ -89,17 +100,45 @@ export default function CodeEditorPanel({ problemId, onSolve }: Props) {
           <button
             onClick={() => handleRun(problemId)}
             disabled={isRunning || isSubmitting}
-            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#5b5bd6] px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-y-0.75 hover:translate-x-0.75 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none sm:px-4"
+            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#5b5bd6] px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_black] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none sm:px-4"
           >
             {isRunning ? "Running . ." : "▶ Run"}
           </button>
           <button
             onClick={() => handleSubmit(problemId)}
             disabled={isRunning || isSubmitting}
-            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#22c55e] px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-y-0.75 hover:translate-x-0.75 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none sm:px-4"
+            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#22c55e] px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_black] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none sm:px-4"
           >
             {isSubmitting ? "Submitting . ." : "Submit"}
           </button>
+          <div className="relative z-30">
+            <button
+              type="button"
+              aria-label="Toggle account actions"
+              aria-expanded={showLogout}
+              onClick={() => setShowLogout((prev) => !prev)}
+              className="h-9 w-9 flex items-center justify-center bg-[#c8ecff] border-2 border-black shadow-[3px_3px_0px_black] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_black] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
+            >
+              <svg
+                className={`h-4 w-4 text-black transition-transform ${showLogout ? "rotate-180" : ""}`}
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            {showLogout && (
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="absolute right-0 top-12 whitespace-nowrap text-xs font-sans font-bold tracking-widest text-white uppercase bg-red-500 px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_black] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
+              >
+                Logout
+              </button>
+
+            )}
+          </div>
         </div>
       </div>
       <div className="flex-1 min-h-0 rounded-xl border border-gray-200 overflow-hidden relative">

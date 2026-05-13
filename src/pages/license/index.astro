@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+    title="License | Eminent"
+    description="Attribution requirements for Project Euler problems used in Eminent."
+>
+    <main class="w-full text-[#17151f] min-h-screen">
+        <section class="w-[min(1180px,calc(100%-32px))] mx-auto px-4 py-20">
+            <div
+                class="p-6 sm:p-8 border-2 border-[#17151f] rounded-lg bg-[#fff9e8] shadow-[6px_6px_0_#17151f]"
+            >
+                <p
+                    class="m-0 mb-3 text-[#6d35ee] font-mono font-black uppercase tracking-wide text-sm"
+                >
+                    Licensing
+                </p>
+                <p class="m-0 text-base sm:text-lg font-medium leading-[1.7]">
+                    The problems featured in this project are taken from
+                    <a
+                        href="https://projecteuler.net"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="underline text-[#17151f] hover:text-[#6d35ee]"
+                        >Project Euler</a
+                    >
+                    and are used under the
+                    <a
+                        href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="underline text-[#17151f] hover:text-[#6d35ee]"
+                        >Creative Commons Attribution-NonCommercial-ShareAlike
+                        4.0 International (CC BY-NC-SA 4.0)</a
+                    >
+                    licence. This project is non-commercial and exists purely for
+                    learning and exploration.
+                </p>
+            </div>
+            <div class="flex justify-center mt-8">
+                <a
+                    href="/"
+                    class="inline-flex items-center justify-center px-5 py-3 border-2 border-solid border-[#17151f] rounded-lg bg-[#fff9e8] shadow-[4px_4px_0px_0px_#17151f] font-black uppercase text-[12px] tracking-widest text-[#17151f] hover:bg-[#17151f] hover:text-[#fff9e8] transition-all duration-200 active:shadow-none active:translate-x-1px active:translate-y-1px"
+                >
+                    Go Home
+                </a>
+            </div>
+        </section>
+    </main>
+</BaseLayout>
+<style>
+    body {
+        background-color: #fff9e8;
+    }
+</style>

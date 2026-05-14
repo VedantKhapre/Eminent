@@ -1,7 +1,10 @@
 import { useState } from "react";
-import type { Problems } from "../../data/problems/types";
+import type { Problems, ProblemDescription, ProblemImage } from "../../data/problems/types";
 import GridPattern from "@/components/grid/GridPattern";
 import SelectionPanel from "./SelectionPanel";
+
+const isImageItem = (item: ProblemDescription): item is ProblemImage =>
+  typeof item === "object" && item !== null && "src" in item;
 
 interface Props {
   problem: Problems;
@@ -63,16 +66,33 @@ export default function ProblemPanel({ problem, problems, onSelect, solvedIds }:
         <h2 className="text-white font-sans font-bold text-3xl mb-4 leading-tight">
           {problem.name}
         </h2>
-        <div className="w-full h-px bg-white/10 mb-4" />
+        <div className="w-full h-px bg-white/70 mb-4" />
         <div className="flex flex-col gap-3">
-          {problem.description.map((para, i) => (
-            <p
-              key={i}
-              className="font-mono text-white/70 text-base leading-relaxed"
-            >
-              {para}
-            </p>
-          ))}
+          {problem.description.map((item, i) => {
+            if (typeof item === "string") {
+              return (
+                <p
+                  key={i}
+                  className="font-mono text-white text-base leading-relaxed wrap-break-word"
+                >
+                  {item}
+                </p>
+              );
+            }
+        
+            if (isImageItem(item)) {
+              return (
+                <img
+                  key={i}
+                  src={item.src}
+                  alt={item.alt}
+                  className="max-w-full block mx-auto"
+                />
+              );
+            }
+          
+            return null;
+          })}
         </div>
       </div>
 

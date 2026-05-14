@@ -29,11 +29,11 @@ export default function ProblemPanel({ problem, problems, onSelect, solvedIds }:
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-sans font-bold tracking-widest text-white/40 uppercase">
+            <span className="text-sm font-sans font-bold tracking-widest text-white uppercase">
               Problem {problem.id}
             </span>
             {solvedIds.has(problem.id) && (
-              <span className="text-xs font-bold tracking-widest text-green-300 uppercase border border-green-400/40 bg-green-400/10 px-2 py-0.5 rounded-sm">
+              <span className="text-xs font-bold tracking-widest text-[#9cff73] uppercase border border-green-400/40 bg-green-400/10 px-2 py-0.5 rounded-sm">
                 Solved
               </span>
             )}

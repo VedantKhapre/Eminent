@@ -41,8 +41,8 @@ export default function SelectionPanel({
       className="flex flex-col p-6 h-full overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       onPointerLeave={() => setHoverIndex(null)}
     >
-      <div className="flex items-center justify-between mb-8 shrink-0">
-        <span className="text-sm font-sans font-bold tracking-widest text-white/40 uppercase">
+      <div className="sticky top-0 z-10 flex items-center justify-between mb-8 shrink-0 ">
+        <span className="text-sm font-sans font-bold tracking-widest text-white uppercase">
           Problems list
         </span>
         <button
@@ -80,18 +80,18 @@ export default function SelectionPanel({
                 : "w-10 bg-white/20";
           const isSolved = row.p && solvedIds.has(row.p.id);
           const text = isSolved 
-            ? "text-green-300" 
+            ? "text-[#9cff73]" 
             : (dist === 0 || isActive ? "text-white" : "text-white/40");
             
           const content = (
             <>
               <div className="w-16 md:w-24 shrink-0 flex items-center"> 
                 <div
-                  className={`h-0.5 rounded-full transition-all duration-200 ${width}`}
+                  className={`h-0.5 rounded-full transition-all duration-50 ${width}`}
                 />
               </div>
               {row.p && (
-                <span className={`text-xl md:text-2xl font-sans font-bold leading-none transition-colors duration-200 ${text}`}>
+                <span className={`text-xl md:text-2xl font-sans font-bold leading-none transition-colors duration-50 ${text}`}>
                   {row.i}. {row.p.name}
                 </span>
               )}

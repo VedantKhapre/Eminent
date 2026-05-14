@@ -96,22 +96,22 @@ export default function CodeEditorPanel({ problemId, onSolve }: Props) {
             ))}
           </select>
         </label>
-        <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center">
+        <div className="grid w-full grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-2 sm:flex sm:w-auto sm:items-center">
           <button
             onClick={() => handleRun(problemId)}
             disabled={isRunning || isSubmitting}
-            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#5b5bd6] px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_black] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none sm:px-4"
+            className="min-w-0 text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#5b5bd6] px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_black] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none sm:px-4"
           >
-            {isRunning ? "Running . ." : "▶ Run"}
+            {isRunning ? "Running" : "Run"}
           </button>
           <button
             onClick={() => handleSubmit(problemId)}
             disabled={isRunning || isSubmitting}
-            className="text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#22c55e] px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_black] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none sm:px-4"
+            className="min-w-0 text-xs font-sans font-bold tracking-widest text-white uppercase bg-[#22c55e] px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_black] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none sm:px-4"
           >
-            {isSubmitting ? "Submitting . ." : "Submit"}
+            {isSubmitting ? "Submitting" : "Submit"}
           </button>
-          <div className="relative z-30">
+          <div className="relative z-30 justify-self-end">
             <button
               type="button"
               aria-label="Toggle account actions"
@@ -132,7 +132,7 @@ export default function CodeEditorPanel({ problemId, onSolve }: Props) {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="absolute right-0 top-12 whitespace-nowrap text-xs font-sans font-bold tracking-widest text-white uppercase bg-red-500 px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_black] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
+                className="absolute right-0 top-12 whitespace-nowrap text-xs font-sans font-bold tracking-widest text-white uppercase bg-red-500 px-3 py-2 border-2 border-black shadow-[3px_3px_0px_black] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_black] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all sm:top-12"
               >
                 Logout
               </button>

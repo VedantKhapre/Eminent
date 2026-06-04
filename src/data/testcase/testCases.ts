@@ -58,4 +58,134 @@ export const problemTestCases: ProblemTestCases[] = [
       { input: "1", expected: "1" },
     ],
   },
+  {
+    id: 6,
+    public: [
+      { input: "10", expected: "2520" },
+      { input: "5", expected: "60" },
+      { input: "7", expected: "420" },
+    ],
+    private: [
+      { input: "20", expected: "232792560" },
+      { input: "15", expected: "360360" },
+      { input: "1", expected: "1" },
+    ],
+  },
+  {
+    id: 7,
+    public: [
+      { input: "10", expected: "2520" },
+      { input: "5", expected: "60" },
+      { input: "7", expected: "420" },
+    ],
+    private: [
+      { input: "20", expected: "232792560" },
+      { input: "15", expected: "360360" },
+      { input: "1", expected: "1" },
+    ],
+  },
+  {
+    id: 8,
+    public: [
+      { input: "10", expected: "2520" },
+      { input: "5", expected: "60" },
+      { input: "7", expected: "420" },
+    ],
+    private: [
+      { input: "20", expected: "232792560" },
+      { input: "15", expected: "360360" },
+      { input: "1", expected: "1" },
+    ],
+  },
+  {
+    id: 9,
+    public: [
+      { input: "10", expected: "2520" },
+      { input: "5", expected: "60" },
+      { input: "7", expected: "420" },
+    ],
+    private: [
+      { input: "20", expected: "232792560" },
+      { input: "15", expected: "360360" },
+      { input: "1", expected: "1" },
+    ],
+  },
+  {
+    id: 10,
+    public: [
+      { input: "10", expected: "2520" },
+      { input: "5", expected: "60" },
+      { input: "7", expected: "420" },
+    ],
+    private: [
+      { input: "20", expected: "232792560" },
+      { input: "15", expected: "360360" },
+      { input: "1", expected: "1" },
+    ],
+  },
+  {
+    id: 11,
+    public: [
+      { input: "10", expected: "2520" },
+      { input: "5", expected: "60" },
+      { input: "7", expected: "420" },
+    ],
+    private: [
+      { input: "20", expected: "232792560" },
+      { input: "15", expected: "360360" },
+      { input: "1", expected: "1" },
+    ],
+  },
+  {
+    id: 12,
+    public: [
+      { input: "10", expected: "2520" },
+      { input: "5", expected: "60" },
+      { input: "7", expected: "420" },
+    ],
+    private: [
+      { input: "20", expected: "232792560" },
+      { input: "15", expected: "360360" },
+      { input: "1", expected: "1" },
+    ],
+  },
+  {
+    id: 13,
+    public: [
+      { input: "10", expected: "2520" },
+      { input: "5", expected: "60" },
+      { input: "7", expected: "420" },
+    ],
+    private: [
+      { input: "20", expected: "232792560" },
+      { input: "15", expected: "360360" },
+      { input: "1", expected: "1" },
+    ],
+  },
+  {
+    id: 14,
+    public: [
+      { input: "10", expected: "2520" },
+      { input: "5", expected: "60" },
+      { input: "7", expected: "420" },
+    ],
+    private: [
+      { input: "20", expected: "232792560" },
+      { input: "15", expected: "360360" },
+      { input: "1", expected: "1" },
+    ],
+  },
+  {
+    id: 15,
+    public: [
+      { input: "10", expected: "2520" },
+      { input: "5", expected: "60" },
+      { input: "7", expected: "420" },
+    ],
+    private: [
+      { input: "20", expected: "232792560" },
+      { input: "15", expected: "360360" },
+      { input: "1", expected: "1" },
+    ],
+  },
 ];
